@@ -1,0 +1,19 @@
+### Ignore Mac DS_Store files ###
+.DS_Store
+
+## User settings ###
+**/xcuserdata/*
+
+## App packaging ###
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+### Xcode ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+/*.gcno
+**/xcshareddata/WorkspaceSettings.xcsettings
