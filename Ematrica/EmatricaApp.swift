@@ -11,7 +11,7 @@ import SwiftUI
 struct EmatricaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            VignetteSelectionView()
         }
     }
 }

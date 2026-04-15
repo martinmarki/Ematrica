@@ -11,3 +11,15 @@ struct VehicleInfoResponse: Codable {
     let country: CountryNames
     let vignetteType: String
 }
+
+extension VehicleInfoResponse {
+    static let mock = VehicleInfoResponse(
+        statusCode: "OK",
+        internationalRegistrationCode: "H",
+        type: "CAR",
+        name: "Michael Scott",
+        plate: "ABC 123",
+        country: CountryNames(hu: "Magyarország", en: "Hungary"),
+        vignetteType: "D1"
+    )
+}
