@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PurchaseConfirmationView: View {
     @Environment(\.dismiss) var dismiss
+    @State private var viewModel = PurchaseConfirmationViewModel(apiService: APIService())
 
     let vehicle: VehicleInfoResponse
     let vignette: HighwayVignette
@@ -46,16 +47,22 @@ struct PurchaseConfirmationView: View {
             
             VStack(spacing: 15) {
                 Button(action: {
-                    // TODO
+                    Task { await viewModel.confirmPurchase(vehicle: vehicle, vignette: vignette) }
                 }) {
-                    Text("Tovább")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color(red: 0.02, green: 0.12, blue: 0.25))
-                        .foregroundColor(.white)
-                        .cornerRadius(30)
+                    Group {
+                        if viewModel.isLoading {
+                            ProgressView().tint(.white)
+                        } else {
+                            Text("Tovább").font(.headline)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(red: 0.02, green: 0.12, blue: 0.25))
+                    .foregroundColor(.white)
+                    .cornerRadius(30)
                 }
+                .disabled(viewModel.isLoading)
                 
                 Button(action: {
                     dismiss()
@@ -77,6 +84,19 @@ struct PurchaseConfirmationView: View {
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Vásárlás megerősítése")
         .navigationBarTitleDisplayMode(.inline)
+        .alert("Sikeres vásárlás", isPresented: $viewModel.showSuccessAlert) {
+            Button("OK") {
+                // TODO - navigate to successful purchase screen
+                dismiss()
+            }
+        } message: {
+            Text("A matricákat sikeresen kifizetted!")
+        }
+        .alert("Hiba", isPresented: $viewModel.showErrorAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 }
 
