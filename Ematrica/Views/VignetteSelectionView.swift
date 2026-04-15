@@ -5,42 +5,40 @@
 import SwiftUI
 
 struct VignetteSelectionView: View {
-    @State private var selectedVignette: [String]?
-    @State private var navigateToConfirmation = false
+    @State private var viewModel = VignetteSelectionViewModel(apiService: APIService())
 
-    let vehicle = VehicleInfoResponse.mock
-    let nationalOptions = HighwayVignette.mocks
-    
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
-                HStack {
-                    Image(systemName: "car.fill")
-                        .font(.largeTitle)
-                    VStack(alignment: .leading) {
-                        Text(vehicle.plate)
-                            .font(.headline)
-                        Text(vehicle.name)
-                            .foregroundColor(.gray)
+                if let vehicle = viewModel.vehicle {
+                    HStack {
+                        Image(systemName: "car.fill")
+                            .font(.largeTitle)
+                        VStack(alignment: .leading) {
+                            Text(vehicle.plate)
+                                .font(.headline)
+                            Text(vehicle.name)
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
                     }
-                    Spacer()
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+                    .shadow(radius: 2)
                 }
-                .padding()
-                .background(Color(.systemBackground))
-                .cornerRadius(12)
-                .shadow(radius: 2)
-                
+
                 VStack(alignment: .leading, spacing: 15) {
                     Text("Országos matricák")
                         .font(.title3)
                         .bold()
-                    
-                    ForEach(nationalOptions, id: \.vignetteType) { option in
+
+                    ForEach(viewModel.nationalVignettes, id: \.vignetteType) { option in
                         HStack {
                             Circle()
-                                .strokeBorder(selectedVignette == option.vignetteType ? Color.blue : Color.gray, lineWidth: 2)
+                                .strokeBorder(viewModel.selectedVignette == option.vignetteType ? Color.blue : Color.gray, lineWidth: 2)
                                 .frame(width: 20, height: 20)
-                                .overlay(Circle().fill(selectedVignette == option.vignetteType ? Color.blue : Color.clear).frame(width: 12, height: 12))
+                                .overlay(Circle().fill(viewModel.selectedVignette == option.vignetteType ? Color.blue : Color.clear).frame(width: 12, height: 12))
 
                             Text(option.vignetteType.map(\.vignetteDisplayName).joined(separator: ", "))
                             Spacer()
@@ -48,14 +46,14 @@ struct VignetteSelectionView: View {
                                 .bold()
                         }
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 10).stroke(selectedVignette == option.vignetteType ? Color.blue : Color.gray.opacity(0.3)))
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(viewModel.selectedVignette == option.vignetteType ? Color.blue : Color.gray.opacity(0.3)))
                         .onTapGesture {
-                            selectedVignette = option.vignetteType
+                            viewModel.selectedVignette = option.vignetteType
                         }
                     }
                     
                     Button(action: {
-                        navigateToConfirmation = true
+                        viewModel.navigateToConfirmation = true
                     }) {
                         Text("Vásárlás")
                             .bold()
@@ -91,7 +89,11 @@ struct VignetteSelectionView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("E-matrica")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(isPresented: $navigateToConfirmation) {
+            .overlay {
+                if viewModel.isLoading { ProgressView() }
+            }
+            .task { await viewModel.load() }
+            .navigationDestination(isPresented: $viewModel.navigateToConfirmation) {
                 PurchaseConfirmationView()
             }
         }
