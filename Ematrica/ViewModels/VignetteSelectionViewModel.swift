@@ -13,12 +13,17 @@ final class VignetteSelectionViewModel {
         self.apiService = apiService
     }
     
-    var vehicle: VehicleInfoResponse?
-    var nationalVignettes: [HighwayVignette] = []
     var isLoading = false
-    var selectedVignette: [String]?
     var navigateToConfirmation = false
-    private var errorMessage: String?
+    var showNoSelectionAlert = false
+    var selectedVignette: [String]?
+    var errorMessage: String?
+    var nationalVignettes: [HighwayVignette] = []
+    var vehicle: VehicleInfoResponse?
+    var selectedVignetteOption: HighwayVignette? {
+        guard let selected = selectedVignette else { return nil }
+        return nationalVignettes.first { $0.vignetteType == selected }
+    }
 
     func load() async {
         isLoading = true

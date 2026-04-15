@@ -66,7 +66,7 @@ struct CountySelectionView: View {
         }
         .navigationTitle("Éves vármegyei matricák")
         .navigationDestination(isPresented: $navigateToConfirmation) {
-            PurchaseConfirmationView()
+            //PurchaseConfirmationView()
         }
     }
 }

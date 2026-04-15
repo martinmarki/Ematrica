@@ -10,13 +10,8 @@ import SwiftUI
 struct PurchaseConfirmationView: View {
     @Environment(\.dismiss) var dismiss
 
-    private let vehicle = VehicleInfoResponse.mock
-    private let counties = County.mocks
-    private let vignette = HighwayVignette.mocks[0]
-
-    private var total: Int {
-        counties.count * Int(vignette.cost) + Int(vignette.trxFee)
-    }
+    let vehicle: VehicleInfoResponse
+    let vignette: HighwayVignette
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -24,17 +19,14 @@ struct PurchaseConfirmationView: View {
                 VStack(alignment: .leading, spacing: 25) {
                     VStack(spacing: 15) {
                         SummaryRow(label: "Rendszám", value: vehicle.plate)
-                        SummaryRow(label: "Matrica típusa", value: "Éves vármegyei")
+                        SummaryRow(label: "Matrica típusa", value: vignette.vignetteType.map(\.vignetteDisplayName).joined(separator: ", "))
                     }
 
                     Divider()
                         .padding(.vertical, 5)
 
                     VStack(spacing: 18) {
-                        ForEach(counties) { county in
-                            ItemRow(name: county.name, price: Int(vignette.cost))
-                        }
-
+                        ItemRow(name: "Matrica ára", price: Int(vignette.cost))
                         ItemRow(name: "Rendszerhasználati díj", price: Int(vignette.trxFee))
                     }
 
@@ -45,7 +37,7 @@ struct PurchaseConfirmationView: View {
                         Text("Fizetendő összeg")
                             .font(.subheadline.bold())
 
-                        Text("\(total) Ft")
+                        Text("\(Int(vignette.sum)) Ft")
                             .font(.system(size: 38, weight: .bold))
                     }
                 }
@@ -88,6 +80,17 @@ struct PurchaseConfirmationView: View {
     }
 }
 
+private extension String {
+    var vignetteDisplayName: String {
+        switch self {
+        case "DAY":   return "D1 - napi (1 napos)"
+        case "WEEK":  return "D1 - heti (10 napos)"
+        case "MONTH": return "D1 - havi"
+        default:      return self
+        }
+    }
+}
+
 struct SummaryRow: View {
     let label: String
     let value: String
@@ -116,5 +119,5 @@ struct ItemRow: View {
     }
 }
 #Preview {
-    PurchaseConfirmationView()
+    PurchaseConfirmationView(vehicle: .mock, vignette: .mocks[0])
 }

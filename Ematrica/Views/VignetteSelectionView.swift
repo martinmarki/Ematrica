@@ -53,7 +53,11 @@ struct VignetteSelectionView: View {
                     }
                     
                     Button(action: {
-                        viewModel.navigateToConfirmation = true
+                        if viewModel.selectedVignetteOption != nil {
+                            viewModel.navigateToConfirmation = true
+                        } else {
+                            viewModel.showNoSelectionAlert = true
+                        }
                     }) {
                         Text("Vásárlás")
                             .bold()
@@ -93,8 +97,15 @@ struct VignetteSelectionView: View {
                 if viewModel.isLoading { ProgressView() }
             }
             .task { await viewModel.load() }
+            .alert("Nincs kiválasztott matrica", isPresented: $viewModel.showNoSelectionAlert) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("Kérjük válasszon matricát a folytatáshoz.")
+            }
             .navigationDestination(isPresented: $viewModel.navigateToConfirmation) {
-                PurchaseConfirmationView()
+                if let vehicle = viewModel.vehicle, let vignette = viewModel.selectedVignetteOption {
+                    PurchaseConfirmationView(vehicle: vehicle, vignette: vignette)
+                }
             }
         }
     }
