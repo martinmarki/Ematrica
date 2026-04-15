@@ -28,9 +28,20 @@ struct VehicleCategory: Codable {
     let name: CountryNames
 }
 
-struct County: Codable {
+struct County: Codable, Identifiable {
     let id: String
     let name: String
+}
+
+extension County {
+    static let mocks: [County] = [
+        County(id: "YEAR_11", name: "Bács-Kiskun"),
+        County(id: "YEAR_12", name: "Baranya"),
+        County(id: "YEAR_14", name: "Borsod-Abaúj-Zemplén"),
+        County(id: "YEAR_15", name: "Csongrád"),
+        County(id: "YEAR_16", name: "Fejér"),
+        County(id: "YEAR_17", name: "Győr-Moson-Sopron")
+    ]
 }
 
 extension HighwayVignette {
