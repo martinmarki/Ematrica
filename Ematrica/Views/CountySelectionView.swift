@@ -8,35 +8,28 @@
 import SwiftUI
 
 struct CountySelectionView: View {
-    let counties: [County] = County.mocks
-    @State private var selectedIDs: Set<String> = []
-    @State private var navigateToConfirmation = false
-
-    private let countyVignettePrice = 5450
-    var totalCountyAmount: Int {
-        selectedIDs.count * 5450
-    }
+    @State private var viewModel = CountySelectionViewModel(apiService: APIService())
 
     var body: some View {
         VStack {
             List {
                 Section {
-                    ForEach(counties) { county in
+                    ForEach(viewModel.counties) { county in
                         HStack {
-                            Image(systemName: selectedIDs.contains(county.id) ? "checkmark.square.fill" : "square")
+                            Image(systemName: viewModel.selectedIDs.contains(county.id) ? "checkmark.square.fill" : "square")
                                 .foregroundColor(.gray)
                             Text(county.name)
-                                .foregroundColor(selectedIDs.contains(county.id) ? .gray : .primary)
+                                .foregroundColor(viewModel.selectedIDs.contains(county.id) ? .gray : .primary)
                             Spacer()
-                            Text("\(countyVignettePrice) Ft")
+                            Text("\(viewModel.countyVignettePrice) Ft")
                                 .foregroundColor(Color(red: 0.05, green: 0.1, blue: 0.2))
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            if selectedIDs.contains(county.id) {
-                                selectedIDs.remove(county.id)
+                            if viewModel.selectedIDs.contains(county.id) {
+                                viewModel.selectedIDs.remove(county.id)
                             } else {
-                                selectedIDs.insert(county.id)
+                                viewModel.selectedIDs.insert(county.id)
                             }
                         }
                     }
@@ -45,13 +38,11 @@ struct CountySelectionView: View {
 
             VStack(alignment: .leading) {
                 Text("Fizetendő összeg").font(.caption).bold()
-                Text("\(totalCountyAmount) Ft")
+                Text("\(viewModel.totalAmount) Ft")
                     .padding(.top, 4)
                     .font(.system(size: 34, weight: .bold))
 
-                Button(action: {
-                    navigateToConfirmation = true
-                }) {
+                Button(action: { viewModel.onNextTapped() }) {
                     Text("Tovább")
                         .bold()
                         .frame(maxWidth: .infinity)
@@ -65,8 +56,21 @@ struct CountySelectionView: View {
             .background(Color.white)
         }
         .navigationTitle("Éves vármegyei matricák")
-        .navigationDestination(isPresented: $navigateToConfirmation) {
-            //PurchaseConfirmationView()
+        .overlay { if viewModel.isLoading { ProgressView() } }
+        .task { await viewModel.load() }
+        .alert("Nincs kiválasztott vármegye", isPresented: $viewModel.showNoSelectionAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Kérjük válasszon legalább egy vármegyét a folytatáshoz.")
+        }
+        .navigationDestination(isPresented: $viewModel.navigateToConfirmation) {
+            if let vehicle = viewModel.vehicle {
+                PurchaseConfirmationView(
+                    vehicle: vehicle,
+                    counties: viewModel.selectedCounties,
+                    pricePerCounty: viewModel.countyVignettePrice
+                )
+            }
         }
     }
 }

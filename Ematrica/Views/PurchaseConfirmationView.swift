@@ -9,26 +9,32 @@ import SwiftUI
 
 struct PurchaseConfirmationView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var viewModel = PurchaseConfirmationViewModel(apiService: APIService())
+    @State private var viewModel: PurchaseConfirmationViewModel
 
-    let vehicle: VehicleInfoResponse
-    let vignette: HighwayVignette
+    init(vehicle: VehicleInfoResponse, vignette: HighwayVignette) {
+        _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, vignette: vignette))
+    }
+
+    init(vehicle: VehicleInfoResponse, counties: [County], pricePerCounty: Int) {
+        _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, counties: counties, pricePerCounty: pricePerCounty))
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 25) {
                     VStack(spacing: 15) {
-                        SummaryRow(label: "Rendszám", value: vehicle.plate)
-                        SummaryRow(label: "Matrica típusa", value: vignette.vignetteType.map(\.vignetteDisplayName).joined(separator: ", "))
+                        SummaryRow(label: "Rendszám", value: viewModel.vehicle.plate)
+                        SummaryRow(label: "Matrica típusa", value: viewModel.typeName)
                     }
 
                     Divider()
                         .padding(.vertical, 5)
 
                     VStack(spacing: 18) {
-                        ItemRow(name: "Matrica ára", price: Int(vignette.cost))
-                        ItemRow(name: "Rendszerhasználati díj", price: Int(vignette.trxFee))
+                        ForEach(viewModel.displayItems, id: \.name) { item in
+                            ItemRow(name: item.name, price: item.cost)
+                        }
                     }
 
                     Divider()
@@ -37,8 +43,7 @@ struct PurchaseConfirmationView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Fizetendő összeg")
                             .font(.subheadline.bold())
-
-                        Text("\(Int(vignette.sum)) Ft")
+                        Text("\(viewModel.total) Ft")
                             .font(.system(size: 38, weight: .bold))
                     }
                 }
@@ -47,7 +52,7 @@ struct PurchaseConfirmationView: View {
             
             VStack(spacing: 15) {
                 Button(action: {
-                    Task { await viewModel.confirmPurchase(vehicle: vehicle, vignette: vignette) }
+                    Task { await viewModel.confirmPurchase() }
                 }) {
                     Group {
                         if viewModel.isLoading {
