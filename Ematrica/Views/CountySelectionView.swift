@@ -10,6 +10,7 @@ import SwiftUI
 struct CountySelectionView: View {
     let counties: [County] = County.mocks
     @State private var selectedIDs: Set<String> = []
+    @State private var navigateToConfirmation = false
 
     private let countyVignettePrice = 5450
     var totalCountyAmount: Int {
@@ -48,20 +49,25 @@ struct CountySelectionView: View {
                     .padding(.top, 4)
                     .font(.system(size: 34, weight: .bold))
 
-                Button("Tovább") {
-                    // TODO
+                Button(action: {
+                    navigateToConfirmation = true
+                }) {
+                    Text("Tovább")
+                        .bold()
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(red: 0.05, green: 0.1, blue: 0.2))
+                        .foregroundColor(.white)
+                        .cornerRadius(25)
                 }
-                    .bold()
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(red: 0.05, green: 0.1, blue: 0.2))
-                    .foregroundColor(.white)
-                    .cornerRadius(25)
             }
             .padding()
             .background(Color.white)
         }
         .navigationTitle("Éves vármegyei matricák")
+        .navigationDestination(isPresented: $navigateToConfirmation) {
+            PurchaseConfirmationView()
+        }
     }
 }
 

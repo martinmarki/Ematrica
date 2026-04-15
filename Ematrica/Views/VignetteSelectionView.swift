@@ -6,6 +6,7 @@ import SwiftUI
 
 struct VignetteSelectionView: View {
     @State private var selectedVignette: [String]?
+    @State private var navigateToConfirmation = false
 
     let vehicle = VehicleInfoResponse.mock
     let nationalOptions = HighwayVignette.mocks
@@ -54,7 +55,7 @@ struct VignetteSelectionView: View {
                     }
                     
                     Button(action: {
-                        // TODO
+                        navigateToConfirmation = true
                     }) {
                         Text("Vásárlás")
                             .bold()
@@ -90,6 +91,9 @@ struct VignetteSelectionView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("E-matrica")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(isPresented: $navigateToConfirmation) {
+                PurchaseConfirmationView()
+            }
         }
     }
 }
