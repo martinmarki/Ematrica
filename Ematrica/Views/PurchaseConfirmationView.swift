@@ -89,13 +89,8 @@ struct PurchaseConfirmationView: View {
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Vásárlás megerősítése")
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Sikeres vásárlás", isPresented: $viewModel.showSuccessAlert) {
-            Button("OK") {
-                // TODO - navigate to successful purchase screen
-                dismiss()
-            }
-        } message: {
-            Text("A matricákat sikeresen kifizetted!")
+        .navigationDestination(isPresented: $viewModel.navigateToSuccess) {
+            PurchaseSuccessView()
         }
         .alert("Hiba", isPresented: $viewModel.showErrorAlert) {
             Button("OK", role: .cancel) {}

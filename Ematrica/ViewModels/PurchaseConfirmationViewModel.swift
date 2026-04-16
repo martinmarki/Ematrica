@@ -34,7 +34,7 @@ final class PurchaseConfirmationViewModel {
     }
 
     var isLoading = false
-    var showSuccessAlert = false
+    var navigateToSuccess = false
     var showErrorAlert = false
     var errorMessage: String?
 
@@ -45,7 +45,7 @@ final class PurchaseConfirmationViewModel {
         do {
             let response = try await apiService.postHighwayOrder(HighwayOrderRequest(highwayOrders: orders))
             if response.statusCode == "OK" {
-                showSuccessAlert = true
+                navigateToSuccess = true
             } else {
                 errorMessage = "A tranzakció nem sikerült. Kérjük próbálja újra."
                 showErrorAlert = true
