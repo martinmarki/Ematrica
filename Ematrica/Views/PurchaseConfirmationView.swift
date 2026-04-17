@@ -24,7 +24,7 @@ struct PurchaseConfirmationView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 25) {
                     VStack(spacing: 15) {
-                        SummaryRow(label: "Rendszám", value: viewModel.vehicle.plate)
+                        SummaryRow(label: "Rendszám", value: viewModel.vehicle.plate.uppercased())
                         SummaryRow(label: "Matrica típusa", value: viewModel.typeName)
                     }
 

@@ -15,7 +15,7 @@ struct VignetteSelectionView: View {
                         Image(systemName: "car.fill")
                             .font(.largeTitle)
                         VStack(alignment: .leading) {
-                            Text(vehicle.plate)
+                            Text(vehicle.plate.uppercased())
                                 .font(.headline)
                             Text(vehicle.name)
                                 .foregroundColor(.gray)
