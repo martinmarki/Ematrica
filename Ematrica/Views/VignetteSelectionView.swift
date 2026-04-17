@@ -25,7 +25,6 @@ struct VignetteSelectionView: View {
                     .padding()
                     .background(Color(.systemBackground))
                     .cornerRadius(12)
-                    .shadow(radius: 2)
                 }
 
                 VStack(alignment: .leading, spacing: 15) {
@@ -36,9 +35,9 @@ struct VignetteSelectionView: View {
                     ForEach(viewModel.nationalVignettes, id: \.vignetteType) { option in
                         HStack {
                             Circle()
-                                .strokeBorder(viewModel.selectedVignette == option.vignetteType ? Color.blue : Color.gray, lineWidth: 2)
+                                .strokeBorder(viewModel.selectedVignette == option.vignetteType ? Color.primary : Color.gray, lineWidth: 2)
                                 .frame(width: 20, height: 20)
-                                .overlay(Circle().fill(viewModel.selectedVignette == option.vignetteType ? Color.blue : Color.clear).frame(width: 12, height: 12))
+                                .overlay(Circle().fill(viewModel.selectedVignette == option.vignetteType ? Color.primary : Color.clear).frame(width: 12, height: 12))
 
                             Text(option.vignetteType.map(\.vignetteDisplayName).joined(separator: ", "))
                             Spacer()
@@ -46,7 +45,7 @@ struct VignetteSelectionView: View {
                                 .bold()
                         }
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 10).stroke(viewModel.selectedVignette == option.vignetteType ? Color.blue : Color.gray.opacity(0.3)))
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(viewModel.selectedVignette == option.vignetteType ? Color.primary : Color.gray.opacity(0.3)))
                         .onTapGesture {
                             viewModel.selectedVignette = option.vignetteType
                         }
@@ -71,13 +70,14 @@ struct VignetteSelectionView: View {
                 NavigationLink(destination: CountySelectionView()) {
                     HStack {
                         Text("Éves vármegyei matricák")
-                            .font(.headline)
+                            .font(.title3.bold())
                             .foregroundColor(.primary)
                         Spacer()
                         Image(systemName: "chevron.right")
                             .foregroundColor(.gray)
                     }
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 20)
                     .background(Color.white)
                     .cornerRadius(15)
                 }

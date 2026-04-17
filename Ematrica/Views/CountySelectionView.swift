@@ -35,6 +35,7 @@ struct CountySelectionView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
 
             if !viewModel.isSelectionConnected {
                 HStack(spacing: 8) {
