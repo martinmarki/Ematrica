@@ -64,7 +64,7 @@ struct PurchaseConfirmationView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color(red: 0.02, green: 0.12, blue: 0.25))
+                    .background(Color.primary)
                     .foregroundColor(.white)
                     .cornerRadius(30)
                 }
@@ -79,9 +79,9 @@ struct PurchaseConfirmationView: View {
                         .padding()
                         .background(
                             Capsule()
-                                .stroke(Color(red: 0.02, green: 0.12, blue: 0.25), lineWidth: 2)
+                                .stroke(Color.primary, lineWidth: 2)
                         )
-                        .foregroundColor(Color(red: 0.02, green: 0.12, blue: 0.25))
+                        .foregroundColor(Color.primary)
                 }
             }
             .padding(25)
@@ -124,7 +124,7 @@ struct ItemRow: View {
         HStack {
             Text(name)
                 .fontWeight(.bold)
-                .foregroundColor(Color(red: 0.02, green: 0.12, blue: 0.25))
+                .foregroundColor(Color.primary)
             Spacer()
             Text("\(price) Ft")
         }

@@ -22,7 +22,7 @@ struct CountySelectionView: View {
                                 .foregroundColor(viewModel.selectedIDs.contains(county.id) ? .gray : .primary)
                             Spacer()
                             Text("\(Int(viewModel.countyVignette?.cost ?? 0)) Ft")
-                                .foregroundColor(Color(red: 0.05, green: 0.1, blue: 0.2))
+                                .foregroundColor(Color.primary)
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -60,7 +60,7 @@ struct CountySelectionView: View {
                         .bold()
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color(red: 0.05, green: 0.1, blue: 0.2))
+                        .background(Color.primary)
                         .foregroundColor(.white)
                         .cornerRadius(25)
                 }

@@ -63,7 +63,7 @@ struct VignetteSelectionView: View {
                             .bold()
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color(red: 0.05, green: 0.1, blue: 0.2))
+                            .background(Color.primary)
                             .foregroundColor(.white)
                             .cornerRadius(25)
                     }

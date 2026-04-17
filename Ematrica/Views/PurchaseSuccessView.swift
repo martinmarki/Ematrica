@@ -17,7 +17,7 @@ struct PurchaseSuccessView: View {
             Image(systemName: "checkmark.circle.fill")
                 .resizable()
                 .frame(width: 90, height: 90)
-                .foregroundColor(Color(red: 0.02, green: 0.12, blue: 0.25))
+                .foregroundColor(Color.primary)
 
             Text("A matricákat sikeresen kifizetted!")
                 .font(.title3.bold())
@@ -38,7 +38,7 @@ struct PurchaseSuccessView: View {
                     .bold()
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color(red: 0.02, green: 0.12, blue: 0.25))
+                    .background(Color.primary)
                     .foregroundColor(.white)
                     .cornerRadius(30)
             }
