@@ -36,6 +36,19 @@ struct CountySelectionView: View {
                 }
             }
 
+            if !viewModel.isSelectionConnected {
+                HStack(spacing: 8) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                    Text("A kiválasztott vármegyék nem kapcsolódnak egymáshoz.")
+                        .font(.footnote)
+                }
+                .foregroundColor(.orange)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .background(Color.orange.opacity(0.1))
+            }
+
             VStack(alignment: .leading) {
                 Text("Fizetendő összeg").font(.caption).bold()
                 Text("\(viewModel.totalAmount) Ft")
