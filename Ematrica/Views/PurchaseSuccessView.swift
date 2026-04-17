@@ -11,23 +11,33 @@ struct PurchaseSuccessView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        VStack(spacing: 32) {
-            Spacer()
+        ZStack(alignment: .top) {
+            Color.navigationBar.ignoresSafeArea()
 
-            Image(systemName: "checkmark.circle.fill")
+            Image("confetti")
                 .resizable()
-                .frame(width: 90, height: 90)
-                .foregroundColor(Color.primary)
+                .scaledToFit()
+                .frame(maxWidth: .infinity)
+                .frame(height: 450)
+                .ignoresSafeArea(edges: .top)
 
-            Text("A matricákat sikeresen kifizetted!")
-                .font(.title3.bold())
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 24)
+            VStack(spacing: 0) {
+                Spacer()
 
-            Spacer()
+                Text("A matricákat sikeresen kifizetted!")
+                    .font(.system(size: 44, weight: .bold))
+                    .multilineTextAlignment(.leading)
+                    .padding(.horizontal, 24)
+
+                Spacer()
+
+                Image("successMan")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.navigationBar.ignoresSafeArea())
         .navigationBarBackButtonHidden(true)
         .toolbarBackground(Color.navigationBar, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
@@ -43,6 +53,7 @@ struct PurchaseSuccessView: View {
                     .cornerRadius(30)
             }
             .padding(25)
+            .background(Color.navigationBar)
         }
     }
 }
