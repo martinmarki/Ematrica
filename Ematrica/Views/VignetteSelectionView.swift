@@ -52,21 +52,16 @@ struct VignetteSelectionView: View {
                         }
                     }
                     
-                    Button(action: {
-                        if viewModel.selectedVignetteOption != nil {
-                            viewModel.navigateToConfirmation = true
-                        } else {
-                            viewModel.showNoSelectionAlert = true
-                        }
-                    }) {
+                    Button(action: { viewModel.navigateToConfirmation = true }) {
                         Text("Vásárlás")
                             .bold()
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.primary)
+                            .background(viewModel.selectedVignetteOption == nil ? Color.disabled : Color.primary)
                             .foregroundColor(.white)
                             .cornerRadius(25)
                     }
+                    .disabled(viewModel.selectedVignetteOption == nil)
                     .padding(.top, 10)
                 }
                 .padding()
@@ -99,11 +94,6 @@ struct VignetteSelectionView: View {
                 if viewModel.isLoading { ProgressView() }
             }
             .task { await viewModel.load() }
-            .alert("Nincs kiválasztott matrica", isPresented: $viewModel.showNoSelectionAlert) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text("Kérjük válasszon matricát a folytatáshoz.")
-            }
             .navigationDestination(isPresented: $viewModel.navigateToConfirmation) {
                 if let vehicle = viewModel.vehicle, let vignette = viewModel.selectedVignetteOption {
                     PurchaseConfirmationView(vehicle: vehicle, vignette: vignette)

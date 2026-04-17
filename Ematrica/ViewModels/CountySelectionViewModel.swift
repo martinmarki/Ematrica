@@ -20,7 +20,6 @@ final class CountySelectionViewModel {
     var isLoading = false
     var errorMessage: String?
     var navigateToConfirmation = false
-    var showNoSelectionAlert = false
 
     var selectedCounties: [County] {
         counties.filter { selectedIDs.contains($0.id) }
@@ -61,13 +60,6 @@ final class CountySelectionViewModel {
         }
     }
 
-    func onNextTapped() {
-        if selectedIDs.isEmpty {
-            showNoSelectionAlert = true
-        } else {
-            navigateToConfirmation = true
-        }
-    }
 
     private let countyNeighborhood: [String: Set<String>] = [
         // Bács-Kiskun

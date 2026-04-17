@@ -55,15 +55,16 @@ struct CountySelectionView: View {
                     .padding(.top, 4)
                     .font(.system(size: 34, weight: .bold))
 
-                Button(action: { viewModel.onNextTapped() }) {
+                Button(action: { viewModel.navigateToConfirmation = true }) {
                     Text("Tovább")
                         .bold()
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.primary)
+                        .background(viewModel.selectedIDs.isEmpty ? Color.disabled : Color.primary)
                         .foregroundColor(.white)
                         .cornerRadius(25)
                 }
+                .disabled(viewModel.selectedIDs.isEmpty)
             }
             .padding()
             .background(Color.white)
@@ -73,11 +74,6 @@ struct CountySelectionView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .overlay { if viewModel.isLoading { ProgressView() } }
         .task { await viewModel.load() }
-        .alert("Nincs kiválasztott vármegye", isPresented: $viewModel.showNoSelectionAlert) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("Kérjük válasszon legalább egy vármegyét a folytatáshoz.")
-        }
         .navigationDestination(isPresented: $viewModel.navigateToConfirmation) {
             if let vehicle = viewModel.vehicle, let countyVignette = viewModel.countyVignette {
                 PurchaseConfirmationView(
