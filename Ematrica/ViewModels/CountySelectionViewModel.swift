@@ -15,20 +15,19 @@ final class CountySelectionViewModel {
 
     var counties: [County] = []
     var vehicle: VehicleInfoResponse?
+    var countyVignette: HighwayVignette?
     var selectedIDs: Set<String> = []
     var isLoading = false
     var errorMessage: String?
     var navigateToConfirmation = false
     var showNoSelectionAlert = false
 
-    let countyVignettePrice = 5450
-
     var selectedCounties: [County] {
         counties.filter { selectedIDs.contains($0.id) }
     }
 
     var totalAmount: Int {
-        selectedIDs.count * countyVignettePrice
+        selectedIDs.count * Int(countyVignette?.sum ?? 0)
     }
 
     func load() async {
@@ -39,7 +38,9 @@ final class CountySelectionViewModel {
             async let vehicleResult = apiService.getVehicleInfo()
             async let infoResult = apiService.getHighwayInfo()
             vehicle = try await vehicleResult
-            counties = try await infoResult.payload.counties
+            let info = try await infoResult
+            counties = info.payload.counties
+            countyVignette = info.payload.highwayVignettes.first { $0.vignetteType.contains { $0.hasPrefix("YEAR_") } }
         } catch {
             errorMessage = error.localizedDescription
         }

@@ -24,13 +24,13 @@ final class PurchaseConfirmationViewModel {
         self.total = Int(vignette.sum)
     }
 
-    init(apiService: APIServiceProtocol, vehicle: VehicleInfoResponse, counties: [County], pricePerCounty: Int) {
+    init(apiService: APIServiceProtocol, vehicle: VehicleInfoResponse, counties: [County], countyVignette: HighwayVignette) {
         self.apiService = apiService
         self.vehicle = vehicle
-        self.orders = counties.map { HighwayOrder(type: $0.id, category: vehicle.type, cost: Double(pricePerCounty)) }
+        self.orders = counties.map { HighwayOrder(type: $0.id, category: vehicle.type, cost: countyVignette.cost) }
         self.typeName = "Éves vármegyei"
-        self.displayItems = counties.map { ($0.name, pricePerCounty) }
-        self.total = counties.count * pricePerCounty
+        self.displayItems = counties.map { ($0.name, Int(countyVignette.cost)) } + [("Rendszerhasználati díj", Int(countyVignette.trxFee) * counties.count)]
+        self.total = Int(countyVignette.sum) * counties.count
     }
 
     var isLoading = false

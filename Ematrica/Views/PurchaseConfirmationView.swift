@@ -15,8 +15,8 @@ struct PurchaseConfirmationView: View {
         _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, vignette: vignette))
     }
 
-    init(vehicle: VehicleInfoResponse, counties: [County], pricePerCounty: Int) {
-        _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, counties: counties, pricePerCounty: pricePerCounty))
+    init(vehicle: VehicleInfoResponse, counties: [County], countyVignette: HighwayVignette) {
+        _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, counties: counties, countyVignette: countyVignette))
     }
 
     var body: some View {

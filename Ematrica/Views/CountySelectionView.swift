@@ -21,7 +21,7 @@ struct CountySelectionView: View {
                             Text(county.name)
                                 .foregroundColor(viewModel.selectedIDs.contains(county.id) ? .gray : .primary)
                             Spacer()
-                            Text("\(viewModel.countyVignettePrice) Ft")
+                            Text("\(Int(viewModel.countyVignette?.sum ?? 0)) Ft")
                                 .foregroundColor(Color(red: 0.05, green: 0.1, blue: 0.2))
                         }
                         .contentShape(Rectangle())
@@ -64,11 +64,11 @@ struct CountySelectionView: View {
             Text("Kérjük válasszon legalább egy vármegyét a folytatáshoz.")
         }
         .navigationDestination(isPresented: $viewModel.navigateToConfirmation) {
-            if let vehicle = viewModel.vehicle {
+            if let vehicle = viewModel.vehicle, let countyVignette = viewModel.countyVignette {
                 PurchaseConfirmationView(
                     vehicle: vehicle,
                     counties: viewModel.selectedCounties,
-                    pricePerCounty: viewModel.countyVignettePrice
+                    countyVignette: countyVignette
                 )
             }
         }
