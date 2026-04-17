@@ -107,6 +107,9 @@ struct VignetteSelectionView: View {
                     PurchaseConfirmationView(vehicle: vehicle, vignette: vignette)
                 }
             }
+            .onAppear {
+                viewModel.selectedVignette = nil
+            }
         }
     }
 }
