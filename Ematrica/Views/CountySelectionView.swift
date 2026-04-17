@@ -21,7 +21,7 @@ struct CountySelectionView: View {
                             Text(county.name)
                                 .foregroundColor(viewModel.selectedIDs.contains(county.id) ? .gray : .primary)
                             Spacer()
-                            Text("\(Int(viewModel.countyVignette?.sum ?? 0)) Ft")
+                            Text("\(Int(viewModel.countyVignette?.cost ?? 0)) Ft")
                                 .foregroundColor(Color(red: 0.05, green: 0.1, blue: 0.2))
                         }
                         .contentShape(Rectangle())

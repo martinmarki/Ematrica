@@ -42,7 +42,7 @@ struct VignetteSelectionView: View {
 
                             Text(option.vignetteType.map(\.vignetteDisplayName).joined(separator: ", "))
                             Spacer()
-                            Text("\(Int(option.sum)) Ft")
+                            Text("\(Int(option.cost)) Ft")
                                 .bold()
                         }
                         .padding()

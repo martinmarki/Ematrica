@@ -27,7 +27,7 @@ final class CountySelectionViewModel {
     }
 
     var totalAmount: Int {
-        selectedIDs.count * Int(countyVignette?.sum ?? 0)
+        selectedIDs.count * Int(countyVignette?.cost ?? 0)
     }
 
     func load() async {
