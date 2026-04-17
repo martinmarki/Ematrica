@@ -93,6 +93,8 @@ struct VignetteSelectionView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("E-matrica")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.navigationBar, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .overlay {
                 if viewModel.isLoading { ProgressView() }
             }

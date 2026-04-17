@@ -27,7 +27,10 @@ struct PurchaseSuccessView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.navigationBar.ignoresSafeArea())
         .navigationBarBackButtonHidden(true)
+        .toolbarBackground(Color.navigationBar, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .safeAreaInset(edge: .bottom) {
             Button(action: { dismiss() }) {
                 Text("Rendben")
@@ -40,7 +43,6 @@ struct PurchaseSuccessView: View {
                     .cornerRadius(30)
             }
             .padding(25)
-            .background(Color.white)
         }
     }
 }

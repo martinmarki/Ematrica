@@ -69,6 +69,8 @@ struct CountySelectionView: View {
             .background(Color.white)
         }
         .navigationTitle("Éves vármegyei matricák")
+        .toolbarBackground(Color.navigationBar, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .overlay { if viewModel.isLoading { ProgressView() } }
         .task { await viewModel.load() }
         .alert("Nincs kiválasztott vármegye", isPresented: $viewModel.showNoSelectionAlert) {

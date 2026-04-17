@@ -27,6 +27,7 @@ struct PurchaseConfirmationView: View {
                         SummaryRow(label: "Rendszám", value: viewModel.vehicle.plate.uppercased())
                         SummaryRow(label: "Matrica típusa", value: viewModel.typeName)
                     }
+                    .padding(.top, 20)
 
                     Divider()
                         .padding(.vertical, 5)
@@ -89,6 +90,8 @@ struct PurchaseConfirmationView: View {
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Vásárlás megerősítése")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color.navigationBar, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .navigationDestination(isPresented: $viewModel.navigateToSuccess) {
             PurchaseSuccessView()
         }
