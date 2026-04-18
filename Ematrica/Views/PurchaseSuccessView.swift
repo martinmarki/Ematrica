@@ -24,7 +24,7 @@ struct PurchaseSuccessView: View {
             VStack(spacing: 0) {
                 Spacer()
 
-                Text("A matricákat sikeresen kifizetted!")
+                Text(.purchaseSuccessMessage)
                     .font(.system(size: 44, weight: .bold))
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 24)
@@ -43,7 +43,7 @@ struct PurchaseSuccessView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .safeAreaInset(edge: .bottom) {
             Button(action: { dismiss() }) {
-                Text("Rendben")
+                Text(.confirm)
                     .font(.headline)
                     .bold()
                     .frame(maxWidth: .infinity)

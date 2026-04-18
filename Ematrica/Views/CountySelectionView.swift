@@ -40,7 +40,7 @@ struct CountySelectionView: View {
             if !viewModel.isSelectionConnected {
                 HStack(spacing: 8) {
                     Image(systemName: "exclamationmark.triangle.fill")
-                    Text("A kiválasztott vármegyék nem kapcsolódnak egymáshoz.")
+                    Text(.countiesNotConnectedWarning)
                         .font(.footnote)
                 }
                 .foregroundColor(.orange)
@@ -51,13 +51,13 @@ struct CountySelectionView: View {
             }
 
             VStack(alignment: .leading) {
-                Text("Fizetendő összeg").font(.caption).bold()
+                Text(.amountToPay).font(.caption).bold()
                 Text("\(viewModel.totalAmount) Ft")
                     .padding(.top, 4)
                     .font(.system(size: 34, weight: .bold))
 
                 Button(action: { viewModel.navigateToConfirmation = true }) {
-                    Text("Tovább")
+                    Text(.continueButton)
                         .bold()
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -70,7 +70,7 @@ struct CountySelectionView: View {
             .padding()
             .background(Color.white)
         }
-        .navigationTitle("Éves vármegyei matricák")
+        .navigationTitle(.annualCountyVignettes)
         .toolbarBackground(Color.navigationBar, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .overlay { if viewModel.isLoading { ProgressView() } }

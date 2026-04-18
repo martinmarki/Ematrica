@@ -24,8 +24,8 @@ struct PurchaseConfirmationView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 25) {
                     VStack(spacing: 15) {
-                        SummaryRow(label: "Rendszám", value: viewModel.vehicle.plate.uppercased())
-                        SummaryRow(label: "Matrica típusa", value: viewModel.typeName)
+                        SummaryRow(label: .licensePlate, value: viewModel.vehicle.plate.uppercased())
+                        SummaryRow(label: .vignetteType, value: viewModel.typeName)
                     }
                     .padding(.top, 20)
 
@@ -42,7 +42,7 @@ struct PurchaseConfirmationView: View {
                         .padding(.vertical, 5)
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Fizetendő összeg")
+                        Text(.amountToPay)
                             .font(.subheadline.bold())
                         Text("\(viewModel.total) Ft")
                             .font(.system(size: 38, weight: .bold))
@@ -59,7 +59,7 @@ struct PurchaseConfirmationView: View {
                         if viewModel.isLoading {
                             ProgressView().tint(.white)
                         } else {
-                            Text("Tovább").font(.headline)
+                            Text(.continueButton).font(.headline)
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -73,7 +73,7 @@ struct PurchaseConfirmationView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Text("Mégsem")
+                    Text(.cancel)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -88,15 +88,15 @@ struct PurchaseConfirmationView: View {
             .background(Color.white)
         }
         .navigationBarBackButtonHidden(true)
-        .navigationTitle("Vásárlás megerősítése")
+        .navigationTitle(.purchaseConfirmationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.navigationBar, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .navigationDestination(isPresented: $viewModel.navigateToSuccess) {
             PurchaseSuccessView()
         }
-        .alert("Hiba", isPresented: $viewModel.showErrorAlert) {
-            Button("OK", role: .cancel) {}
+        .alert(.error, isPresented: $viewModel.showErrorAlert) {
+            Button(.ok, role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
@@ -104,7 +104,7 @@ struct PurchaseConfirmationView: View {
 }
 
 struct SummaryRow: View {
-    let label: String
+    let label: LocalizedStringKey
     let value: String
     
     var body: some View {

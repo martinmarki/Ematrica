@@ -28,7 +28,7 @@ struct VignetteSelectionView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("Országos matricák")
+                    Text(.nationalVignettes)
                         .font(.title3)
                         .bold()
 
@@ -52,7 +52,7 @@ struct VignetteSelectionView: View {
                     }
                     
                     Button(action: { viewModel.navigateToConfirmation = true }) {
-                        Text("Vásárlás")
+                        Text(.purchase)
                             .bold()
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -69,7 +69,7 @@ struct VignetteSelectionView: View {
                 
                 NavigationLink(destination: CountySelectionView()) {
                     HStack {
-                        Text("Éves vármegyei matricák")
+                        Text(.annualCountyVignettes)
                             .font(.title3.bold())
                             .foregroundColor(.primary)
                         Spacer()
@@ -86,7 +86,7 @@ struct VignetteSelectionView: View {
             }
             .padding()
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("E-matrica")
+            .navigationTitle(.eVignette)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.navigationBar, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
