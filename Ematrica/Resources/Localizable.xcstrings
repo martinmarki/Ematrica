@@ -1,0 +1,159 @@
+{
+  "sourceLanguage" : "hu",
+  "strings" : {
+    "%lld Ft" : {
+
+    },
+    "A kiválasztott vármegyék nem kapcsolódnak egymáshoz." : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A kiválasztott vármegyék nem kapcsolódnak egymáshoz."
+          }
+        }
+      }
+    },
+    "A matricákat sikeresen kifizetted!" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A matricákat sikeresen kifizetted!"
+          }
+        }
+      }
+    },
+    "E-matrica" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-matrica"
+          }
+        }
+      }
+    },
+    "Éves vármegyei matricák" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éves vármegyei matricák"
+          }
+        }
+      }
+    },
+    "Fizetendő összeg" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fizetendő összeg"
+          }
+        }
+      }
+    },
+    "Hiba" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiba"
+          }
+        }
+      }
+    },
+    "Matrica típusa" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matrica típusa"
+          }
+        }
+      }
+    },
+    "Mégsem" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mégsem"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Országos matricák" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Országos matricák"
+          }
+        }
+      }
+    },
+    "Rendben" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rendben"
+          }
+        }
+      }
+    },
+    "Rendszám" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rendszám"
+          }
+        }
+      }
+    },
+    "Tovább" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tovább"
+          }
+        }
+      }
+    },
+    "Vásárlás" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vásárlás"
+          }
+        }
+      }
+    },
+    "Vásárlás megerősítése" : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vásárlás megerősítése"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
