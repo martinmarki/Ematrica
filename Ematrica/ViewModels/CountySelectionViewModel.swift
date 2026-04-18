@@ -19,7 +19,6 @@ final class CountySelectionViewModel {
     var selectedIDs: Set<String> = []
     var isLoading = false
     var errorMessage: String?
-    var navigateToConfirmation = false
 
     var selectedCounties: [County] {
         counties.filter { selectedIDs.contains($0.id) }

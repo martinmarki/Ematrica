@@ -14,7 +14,6 @@ final class VignetteSelectionViewModel {
     }
     
     var isLoading = false
-    var navigateToConfirmation = false
     var selectedVignette: [String]?
     var errorMessage: String?
     var nationalVignettes: [HighwayVignette] = []

@@ -9,9 +9,24 @@ import SwiftUI
 
 @main
 struct EmatricaApp: App {
+    @State private var coordinator = Coordinator()
+
     var body: some Scene {
         WindowGroup {
-            VignetteSelectionView()
+            NavigationStack(path: $coordinator.path) {
+                VignetteSelectionView()
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .countySelection:
+                            CountySelectionView()
+                        case .purchaseConfirmation(let selection):
+                            PurchaseConfirmationView(selection: selection)
+                        case .purchaseSuccess:
+                            PurchaseSuccessView()
+                        }
+                    }
+            }
+            .environment(coordinator)
         }
     }
 }

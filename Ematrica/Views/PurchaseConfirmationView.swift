@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct PurchaseConfirmationView: View {
-    @Environment(\.dismiss) var dismiss
     @State private var viewModel: PurchaseConfirmationViewModel
+    @Environment(Coordinator.self) private var coordinator
 
-    init(vehicle: VehicleInfoResponse, vignette: HighwayVignette) {
-        _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, vignette: vignette))
-    }
-
-    init(vehicle: VehicleInfoResponse, counties: [County], countyVignette: HighwayVignette) {
-        _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, counties: counties, countyVignette: countyVignette))
+    init(selection: PurchaseSelection) {
+        switch selection {
+        case .vignette(let vehicle, let vignette):
+            _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, vignette: vignette))
+        case .counties(let vehicle, let counties, let countyVignette):
+            _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, counties: counties, countyVignette: countyVignette))
+        }
     }
 
     var body: some View {
@@ -69,10 +70,8 @@ struct PurchaseConfirmationView: View {
                     .cornerRadius(30)
                 }
                 .disabled(viewModel.isLoading)
-                
-                Button(action: {
-                    dismiss()
-                }) {
+
+                Button(action: { coordinator.pop() }) {
                     Text(.cancel)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
@@ -87,13 +86,12 @@ struct PurchaseConfirmationView: View {
             .padding(25)
             .background(Color.white)
         }
-        .navigationBarBackButtonHidden(true)
         .navigationTitle(.purchaseConfirmationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color.navigationBar, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .navigationDestination(isPresented: $viewModel.navigateToSuccess) {
-            PurchaseSuccessView()
+        .onChange(of: viewModel.navigateToSuccess) { _, success in
+            if success { coordinator.push(.purchaseSuccess) }
         }
         .alert(.error, isPresented: $viewModel.showErrorAlert) {
             Button(.ok, role: .cancel) {}
@@ -131,5 +129,8 @@ struct ItemRow: View {
     }
 }
 #Preview {
-    PurchaseConfirmationView(vehicle: .mock, vignette: .mocks[0])
+    NavigationStack {
+        PurchaseConfirmationView(selection: .vignette(vehicle: .mock, vignette: .mocks[0]))
+    }
+    .environment(Coordinator())
 }

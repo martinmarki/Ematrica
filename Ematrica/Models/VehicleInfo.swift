@@ -2,7 +2,7 @@
 //  VehicleInfo.swift
 //  Ematrica
 
-struct VehicleInfoResponse: Codable {
+struct VehicleInfoResponse: Codable, Hashable {
     let statusCode: String
     let internationalRegistrationCode: String
     let type: String

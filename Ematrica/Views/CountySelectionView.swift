@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CountySelectionView: View {
     @State private var viewModel = CountySelectionViewModel(apiService: APIService())
+    @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
         VStack {
@@ -56,7 +57,14 @@ struct CountySelectionView: View {
                     .padding(.top, 4)
                     .font(.system(size: 34, weight: .bold))
 
-                Button(action: { viewModel.navigateToConfirmation = true }) {
+                Button(action: {
+                    guard let vehicle = viewModel.vehicle, let countyVignette = viewModel.countyVignette else { return }
+                    coordinator.push(.purchaseConfirmation(.counties(
+                        vehicle: vehicle,
+                        counties: viewModel.selectedCounties,
+                        countyVignette: countyVignette
+                    )))
+                }) {
                     Text(.continueButton)
                         .bold()
                         .frame(maxWidth: .infinity)
@@ -75,18 +83,12 @@ struct CountySelectionView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         .overlay { if viewModel.isLoading { ProgressView() } }
         .task { await viewModel.load() }
-        .navigationDestination(isPresented: $viewModel.navigateToConfirmation) {
-            if let vehicle = viewModel.vehicle, let countyVignette = viewModel.countyVignette {
-                PurchaseConfirmationView(
-                    vehicle: vehicle,
-                    counties: viewModel.selectedCounties,
-                    countyVignette: countyVignette
-                )
-            }
-        }
     }
 }
 
 #Preview {
-    CountySelectionView()
+    NavigationStack {
+        CountySelectionView()
+    }
+    .environment(Coordinator())
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PurchaseSuccessView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -42,7 +42,7 @@ struct PurchaseSuccessView: View {
         .toolbarBackground(Color.navigationBar, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .safeAreaInset(edge: .bottom) {
-            Button(action: { dismiss() }) {
+            Button(action: { coordinator.popToRoot() }) {
                 Text(.confirm)
                     .font(.headline)
                     .bold()
@@ -59,5 +59,8 @@ struct PurchaseSuccessView: View {
 }
 
 #Preview {
-    PurchaseSuccessView()
+    NavigationStack {
+        PurchaseSuccessView()
+    }
+    .environment(Coordinator())
 }
