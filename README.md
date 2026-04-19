@@ -41,3 +41,17 @@ docker compose down
 1. Indítsd el az API-t (lásd fentebb)
 2. Nyisd meg az `Ematrica.xcodeproj` fájlt Xcode-ban
 3. Futtasd az alkalmazást (`⌘R`)
+
+---
+
+## Térkép Implementációs Terv
+
+A Figma dizájnban szereplő térkép exportálása korlátozott volt, mivel a Developer Mode használatához és az elemek exportálásához további jogosultságok lettek volna szükségesek. Emiatt a következők szerint valósítanám meg:
+
+**SVG-to-SwiftUI:** A vármegyék határait reprezentáló geometriai adatokat (Path data) vármegyénként különálló SwiftUI Shape objektumokká alakítanám.
+
+A megyéket egy ZStack struktúrába rendezném, ahol az API-ból érkező egyedi azonosítók (pl. YEAR_11) alapján történne a renderelés.
+
+**Kiválasztott megye:** A `isSelected` állapot hatására a terület színe dinamikusan változna (pl. `.fill(Color.green)`).
+
+**Kétirányú szinkron:** A térképen való kattintás (`onTapGesture`) ugyanazt a logikai eseményt váltaná ki a ViewModel-ben, mint a listaelem kiválasztása, így a UI minden eleme azonnal frissülne.
