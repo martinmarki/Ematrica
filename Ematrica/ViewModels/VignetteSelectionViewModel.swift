@@ -15,6 +15,10 @@ final class VignetteSelectionViewModel {
     var errorMessage: String?
     var nationalVignettes: [HighwayVignette] = []
     var vehicle: VehicleInfoResponse?
+    var isUnavailable: Bool {
+        !isLoading && nationalVignettes.isEmpty
+    }
+
     var selectedVignetteOption: HighwayVignette? {
         guard let selected = selectedVignette else { return nil }
         return nationalVignettes.first { $0.vignetteType == selected }

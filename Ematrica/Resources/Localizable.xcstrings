@@ -64,6 +64,16 @@
         }
       }
     },
+    "Jelenleg nem tudjuk lekérni az elérhető matricákat. Kérjük próbáld újra később." : {
+      "localizations" : {
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jelenleg nem tudjuk lekérni az elérhető matricákat. Kérjük próbáld újra később."
+          }
+        }
+      }
+    },
     "Matrica típusa" : {
       "localizations" : {
         "hu" : {
@@ -83,6 +93,9 @@
           }
         }
       }
+    },
+    "Nem elérhetők a matricaadatok" : {
+
     },
     "OK" : {
       "localizations" : {

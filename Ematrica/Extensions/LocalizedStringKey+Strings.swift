@@ -16,4 +16,5 @@ extension LocalizedStringKey {
     static let countiesNotConnectedWarning: LocalizedStringKey = "A kiválasztott vármegyék nem kapcsolódnak egymáshoz."
     static let nationalVignettes: LocalizedStringKey = "Országos matricák"
     static let eVignette: LocalizedStringKey = "E-matrica"
+    static let vignettesUnavailableMessage: LocalizedStringKey = "Jelenleg nem tudjuk lekérni az elérhető matricákat. Kérjük próbáld újra később."
 }
