@@ -61,19 +61,10 @@ struct VignetteSelectionView: View {
                         }
                     }
 
-                    Button(action: {
+                    PrimaryButton(label: .purchase, isDisabled: viewModel.selectedVignetteOption == nil) {
                         guard let vehicle = viewModel.vehicle, let vignette = viewModel.selectedVignetteOption else { return }
                         coordinator.push(.purchaseConfirmation(.vignette(vehicle: vehicle, vignette: vignette)))
-                    }) {
-                        Text(.purchase)
-                            .bold()
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(viewModel.selectedVignetteOption == nil ? Color.disabled : Color.primary)
-                            .foregroundColor(.white)
-                            .cornerRadius(25)
                     }
-                    .disabled(viewModel.selectedVignetteOption == nil)
                     .padding(.top, 10)
                 }
                 .padding()

@@ -42,18 +42,9 @@ struct PurchaseSuccessView: View {
         .toolbarBackground(Color.navigationBar, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .safeAreaInset(edge: .bottom) {
-            Button(action: { coordinator.popToRoot() }) {
-                Text(.confirm)
-                    .font(.headline)
-                    .bold()
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.primary)
-                    .foregroundColor(.white)
-                    .cornerRadius(30)
-            }
-            .padding(25)
-            .background(Color.navigationBar)
+            PrimaryButton(label: .confirm) { coordinator.popToRoot() }
+                .padding(25)
+                .background(Color.navigationBar)
         }
     }
 }
