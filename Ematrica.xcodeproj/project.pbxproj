@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5B5BDB812F94D4D700DFF579 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 5B5BDB802F94D4D700DFF579 /* Factory */; };
+		5B5BDB832F94D4D700DFF579 /* FactoryTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5B5BDB822F94D4D700DFF579 /* FactoryTesting */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5B9EA4FC2F8E41380001D6A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B5BDB812F94D4D700DFF579 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B5BDB832F94D4D700DFF579 /* FactoryTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +110,7 @@
 			);
 			name = Ematrica;
 			packageProductDependencies = (
+				5B5BDB802F94D4D700DFF579 /* Factory */,
 			);
 			productName = Ematrica;
 			productReference = 5B9EA4EE2F8E41350001D6A4 /* Ematrica.app */;
@@ -126,6 +134,7 @@
 			);
 			name = EmatricaTests;
 			packageProductDependencies = (
+				5B5BDB822F94D4D700DFF579 /* FactoryTesting */,
 			);
 			productName = EmatricaTests;
 			productReference = 5B9EA4FB2F8E41380001D6A4 /* EmatricaTests.xctest */;
@@ -159,6 +168,9 @@
 			);
 			mainGroup = 5B9EA4E52F8E41350001D6A4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5B5BDB7F2F94D4D700DFF579 /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5B9EA4EF2F8E41350001D6A4 /* Products */;
 			projectDirPath = "";
@@ -475,6 +487,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5B5BDB7F2F94D4D700DFF579 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5B5BDB802F94D4D700DFF579 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B5BDB7F2F94D4D700DFF579 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		5B5BDB822F94D4D700DFF579 /* FactoryTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B5BDB7F2F94D4D700DFF579 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5B9EA4E62F8E41350001D6A4 /* Project object */;
 }
