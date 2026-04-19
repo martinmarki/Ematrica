@@ -15,6 +15,14 @@ struct CountySelectionView: View {
         VStack {
             List {
                 Section {
+                    Image("HU_county")
+                        .resizable()
+                        .scaledToFit()
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets())
+                }
+
+                Section {
                     ForEach(viewModel.counties) { county in
                         HStack {
                             Image(systemName: viewModel.selectedIDs.contains(county.id) ? "checkmark.square.fill" : "square")
