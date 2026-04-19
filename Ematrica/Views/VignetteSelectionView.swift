@@ -12,7 +12,7 @@ struct VignetteSelectionView: View {
         VStack(spacing: 20) {
             if let vehicle = viewModel.vehicle {
                 HStack {
-                    Image(systemName: "car.fill")
+                    Image(systemName: ImageName.car)
                         .font(.largeTitle)
                     VStack(alignment: .leading) {
                         Text(vehicle.plate.uppercased())
@@ -30,7 +30,7 @@ struct VignetteSelectionView: View {
             if viewModel.isUnavailable {
                 ContentUnavailableView(
                     String(localized: "Nem elérhetők a matricaadatok"),
-                    systemImage: "exclamationmark.triangle",
+                    systemImage: ImageName.warningTriangle,
                     description: Text(.vignettesUnavailableMessage)
                 )
                 .frame(maxWidth: .infinity)
@@ -79,7 +79,7 @@ struct VignetteSelectionView: View {
                             .font(.title3.bold())
                             .foregroundColor(.primary)
                         Spacer()
-                        Image(systemName: "chevron.right")
+                        Image(systemName: ImageName.chevronRight)
                             .foregroundColor(.gray)
                     }
                     .padding(.horizontal)

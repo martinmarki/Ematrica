@@ -28,7 +28,7 @@ struct CountySelectionView: View {
                  Kétirányú szinkron: A térképen való kattintás (onTapGesture) ugyanazt a logikai eseményt váltaná ki a ViewModel-ben, mint a listaelem kiválasztása, így a UI minden eleme azonnal frissülne.
                 */
                 Section {
-                    Image("HU_county")
+                    Image(ImageName.countyMap)
                         .resizable()
                         .scaledToFit()
                         .listRowSeparator(.hidden)
@@ -61,7 +61,7 @@ struct CountySelectionView: View {
 
             if !viewModel.isSelectionConnected {
                 HStack(spacing: 8) {
-                    Image(systemName: "exclamationmark.triangle.fill")
+                    Image(systemName: ImageName.warningTriangleFill)
                     Text(.countiesNotConnectedWarning)
                         .font(.footnote)
                 }

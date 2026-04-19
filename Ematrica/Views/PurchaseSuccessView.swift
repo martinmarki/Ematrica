@@ -14,7 +14,7 @@ struct PurchaseSuccessView: View {
         ZStack(alignment: .top) {
             Color.navigationBar.ignoresSafeArea()
 
-            Image("confetti")
+            Image(ImageName.confetti)
                 .resizable()
                 .scaledToFit()
                 .frame(maxWidth: .infinity)
@@ -31,7 +31,7 @@ struct PurchaseSuccessView: View {
 
                 Spacer()
 
-                Image("successMan")
+                Image(ImageName.successMan)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 250)
