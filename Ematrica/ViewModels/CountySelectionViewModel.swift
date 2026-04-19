@@ -3,15 +3,12 @@
 //  Ematrica
 
 import Foundation
+import Factory
 
 @Observable
 @MainActor
 final class CountySelectionViewModel {
-    private let apiService: APIServiceProtocol
-
-    init(apiService: APIServiceProtocol) {
-        self.apiService = apiService
-    }
+    @ObservationIgnored @Injected(\.apiService) private var apiService
 
     var counties: [County] = []
     var vehicle: VehicleInfoResponse?

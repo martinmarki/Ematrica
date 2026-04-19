@@ -14,9 +14,9 @@ struct PurchaseConfirmationView: View {
     init(selection: PurchaseSelection) {
         switch selection {
         case .vignette(let vehicle, let vignette):
-            _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, vignette: vignette))
+            _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(vehicle: vehicle, vignette: vignette))
         case .counties(let vehicle, let counties, let countyVignette):
-            _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(apiService: APIService(), vehicle: vehicle, counties: counties, countyVignette: countyVignette))
+            _viewModel = State(wrappedValue: PurchaseConfirmationViewModel(vehicle: vehicle, counties: counties, countyVignette: countyVignette))
         }
     }
 

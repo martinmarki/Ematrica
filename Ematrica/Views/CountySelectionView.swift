@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CountySelectionView: View {
-    @State private var viewModel = CountySelectionViewModel(apiService: APIService())
+    @State private var viewModel = CountySelectionViewModel()
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {

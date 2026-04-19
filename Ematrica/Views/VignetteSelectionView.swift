@@ -5,7 +5,7 @@
 import SwiftUI
 
 struct VignetteSelectionView: View {
-    @State private var viewModel = VignetteSelectionViewModel(apiService: APIService())
+    @State private var viewModel = VignetteSelectionViewModel()
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {

@@ -2,21 +2,21 @@
 //  PurchaseConfirmationViewModel.swift
 //  Ematrica
 
-import Foundation
+import Factory
 import Observation
+import Foundation
 
 @Observable
 @MainActor
 final class PurchaseConfirmationViewModel {
-    private let apiService: APIServiceProtocol
+    @ObservationIgnored @Injected(\.apiService) private var apiService
     let vehicle: VehicleInfoResponse
     let orders: [HighwayOrder]
     let typeName: String
     let displayItems: [(name: String, cost: Int)]
     let total: Int
-    
-    init(apiService: APIServiceProtocol, vehicle: VehicleInfoResponse, vignette: HighwayVignette) {
-        self.apiService = apiService
+
+    init(vehicle: VehicleInfoResponse, vignette: HighwayVignette) {
         self.vehicle = vehicle
         self.orders = [HighwayOrder(type: vignette.vignetteType.first ?? "", category: vehicle.type, cost: vignette.cost)]
         self.typeName = vignette.vignetteType.map(\.vignetteDisplayName).joined(separator: ", ")
@@ -24,8 +24,7 @@ final class PurchaseConfirmationViewModel {
         self.total = Int(vignette.sum)
     }
 
-    init(apiService: APIServiceProtocol, vehicle: VehicleInfoResponse, counties: [County], countyVignette: HighwayVignette) {
-        self.apiService = apiService
+    init(vehicle: VehicleInfoResponse, counties: [County], countyVignette: HighwayVignette) {
         self.vehicle = vehicle
         self.orders = counties.map { HighwayOrder(type: $0.id, category: vehicle.type, cost: countyVignette.cost) }
         self.typeName = "Éves vármegyei"
